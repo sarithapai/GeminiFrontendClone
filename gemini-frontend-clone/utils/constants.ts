@@ -1,0 +1,1 @@
+export const ACTIVE_TOKEN_KEY = 'activeChatToken';
