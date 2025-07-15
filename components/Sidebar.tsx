@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setActiveChat, startNewChat } from "@/redux/chatSlice";
 import { getAuthInfo } from "@/utils/authUtils";
+import { START_NEW_CHAT , CHAT_PLACEHOLDER} from "@/utils/strings";
 
 export default function Sidebar() {
     const dispatch = useDispatch();
@@ -57,7 +58,7 @@ export default function Sidebar() {
                                 dispatch(startNewChat());
                             }}
                         >
-                            Start New Chat
+                            {START_NEW_CHAT}
                         </button>
                     )}
 
@@ -72,7 +73,7 @@ export default function Sidebar() {
                                             onSelectChat?.(token);
                                         }}
                                     >
-                                        {messages.length > 0 ? messages[0].text.slice(0, 30) : "No messages yet!"}
+                                        {messages.length > 0 ? messages[0].text.slice(0, 30) : {CHAT_PLACEHOLDER}}
                                     </button>
                                 </li>
                             ))}

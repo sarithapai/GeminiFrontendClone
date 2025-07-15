@@ -8,6 +8,7 @@ import { getAllCountries } from "@/lib/getCountries";
 import { useRouter } from "next/navigation";
 import { setAuthInfo } from "@/utils/authUtils";
 import toast, { Toaster } from "react-hot-toast";
+import { OTP_ERROR, OTP_SENT, OTP_SUCCESS } from "@/utils/strings";
 
 export function OtpForm() {
   const router = useRouter();
@@ -22,7 +23,7 @@ export function OtpForm() {
 
   function onSend() {
     setStep("verify");
-    setTimeout(() => toast.success("OTP sent! (simulated)"), 500);
+    setTimeout(() => toast.success(OTP_SENT), 500);
   }
 
   function onVerify(data: OtpSchema) {
@@ -32,10 +33,10 @@ export function OtpForm() {
           countryCode: data.countryCode,
           phoneNumber: data.phoneNumber,
         })
-        toast.success("Success!");
+        toast.success(OTP_SUCCESS);
         router.push("/")
       } else {
-        toast.error("Invalid OTP");
+        toast.error(OTP_ERROR);
       }
     }, 500);
   }

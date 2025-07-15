@@ -1,3 +1,4 @@
+import { APP_NAME, SIGN_IN } from "@/utils/strings";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -16,7 +17,7 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
         <header>
             <div className="px-2 py-3 flex justify-between items-center">
                 <div className="text-xl font-bold text-gray-800">
-                    Gemini Clone
+                    {APP_NAME}
                 </div>
 
                 <div>
@@ -29,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
                             onClick={handleLogin}
                             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                         >
-                            Sign in
+                            {SIGN_IN}
                         </button>
                     )}
                 </div>

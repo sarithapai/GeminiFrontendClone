@@ -4,6 +4,7 @@ import { Message } from '@/model/MessageType';
 import { addMessage, startNewChat } from '@/redux/chatSlice';
 import { RootState } from '@/redux/store';
 import { getActiveChatToken, getChatDataForToken, storeChatDataForToken } from '@/utils/chatUtils';
+import { HOME_TITLE, LOADING_CHAT } from '@/utils/strings';
 
 export interface ChatHandle {
   startNewChat: () => void;
@@ -63,15 +64,14 @@ const ChatComponent = () => {
 
 
   if (!currentChatToken) {
-    return <div className='items-center'>Loading Chat...</div>;
+    return <div className='items-center'>{LOADING_CHAT}</div>;
   }
 
   return (
     <div className="flex flex-col w-full max-w-[600px] mx-auto h-screen sm:h-[90vh] bg-white p-2 sm:p-4">
       <div className="flex-1 overflow-y-auto mb-2 sm:mb-4" style={{ minHeight: 0 }}>
         {messages.length === 0 ? (
-          <p className="text-center text-gray-900 text-2xl">Meet Gemini Clone, <br />your personal AI assistant
-          </p>
+          <p className="text-center text-gray-900 text-2xl">{HOME_TITLE}</p>
         ) : (
           messages.map((msg, index) => (
             <div
