@@ -9,7 +9,6 @@ import Header from '@/components/Header';
 import ChatComponent from '@/components/ChatComponent';
 import { getActiveChatToken, getAllChats } from '@/utils/chatUtils';
 import { getAuthInfo } from '@/utils/authUtils';
-import { Toaster } from 'react-hot-toast';
 
 function InitChatsFromLocalStorage() {
   const dispatch = useDispatch();

@@ -14,7 +14,7 @@ const ChatComponent = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState<string>('');
   const dispatch = useDispatch();
-  const lastAiTimer = useRef<NodeJS.Timeout>();
+  const lastAiTimer = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (!getActiveChatToken()) {
@@ -31,7 +31,11 @@ const ChatComponent = () => {
         setMessages([]);
       }
     }
-    return () => clearTimeout(lastAiTimer.current);
+    return () => {
+      if (lastAiTimer.current) {
+        clearTimeout(lastAiTimer.current);
+      }
+    };
   }, [currentChatToken]);
 
   useEffect(() => {

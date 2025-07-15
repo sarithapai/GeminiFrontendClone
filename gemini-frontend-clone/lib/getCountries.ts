@@ -9,6 +9,7 @@ export async function getAllCountries() {
 
   const data = await response.json();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return data.map((c: any) => ({
     label: `${c.name.common} (+${c.idd.root}${c.idd.suffixes?.[0] ?? ""})`,
     value: `${c.idd.root}${c.idd.suffixes?.[0] ?? ""}`,

@@ -20,7 +20,7 @@ export function OtpForm() {
 
   useEffect(() => { getAllCountries().then(setCountries); }, []);
 
-  function onSend(data: OtpSchema) {
+  function onSend() {
     setStep("verify");
     setTimeout(() => toast.success("OTP sent! (simulated)"), 500);
   }
