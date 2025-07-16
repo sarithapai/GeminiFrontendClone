@@ -85,11 +85,7 @@ export default function Sidebar() {
                             </li>
                         ))}
                     </ul> : <div className="bg-white border border-gray-300 rounded-lg p-4 text-center shadow-sm mt-4">
-                        <p className="mb-3 text-gray-700 font-medium">
-                            Sign in to start saving your chats
-                            Once you're signed in, you can access your recent chats here.
-
-                        </p>
+                        <p className="mb-3 text-gray-700 font-medium">Sign in to start saving your chats. Once you are signed in, you can access your recent chats here.</p>
                         <Button
                             onClick={handleLogin}
                             title={SIGN_IN}
