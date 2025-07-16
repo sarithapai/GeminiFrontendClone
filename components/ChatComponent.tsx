@@ -17,6 +17,7 @@ const ChatComponent = () => {
   const [isAiTyping, setIsAiTyping] = useState(false);
   const dispatch = useDispatch();
   const lastAiTimer = useRef<NodeJS.Timeout | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (!getActiveChatToken()) {
@@ -45,6 +46,13 @@ const ChatComponent = () => {
       storeChatDataForToken(currentChatToken, messages);
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, isAiTyping]);
+
 
   const handleSendMessage = async () => {
     if (!inputMessage.trim() || !currentChatToken || isAiTyping) return;
@@ -113,6 +121,7 @@ const ChatComponent = () => {
             </div>
           ))
         )}
+        <div ref={messagesEndRef} />
       </div>
       {isAiTyping && (
         <div className="flex justify-start mb-2">
