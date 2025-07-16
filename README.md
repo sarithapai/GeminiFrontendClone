@@ -74,6 +74,12 @@ This project is a frontend clone of the Gemini AI chat interface, built with Nex
 
 ---
 
+## ⚙️ Features: Throttling, Pagination, Infinite Scroll
+
+- **Throttling:**  
+  To simulate a more natural AI typing experience and prevent UI overload, the AI response in the chat is revealed character-by-character using a throttled interval (see `setInterval` in `ChatComponent.tsx`). This ensures that updates to the chat state and Redux store are paced, rather than happening all at once.
+
+---
 ## 📄 License
 
 This project is for educational purposes only.

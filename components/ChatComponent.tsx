@@ -56,13 +56,34 @@ const ChatComponent = () => {
     dispatch(addMessage({ token: currentChatToken, message: userMsg }));
     setInputMessage('');
 
-    lastAiTimer.current = setTimeout(() => {
-      const geminiText = `AI: Mock reply to "${inputMessage}"`;
-      const aiMsg = { sender: 'ai', text: geminiText } as Message;
-      setMessages(prev => [...prev, aiMsg]);
-      dispatch(addMessage({ token: currentChatToken, message: aiMsg }));
-      setIsAiTyping(false);
-    }, 1500);
+    const geminiText = `AI: Mock reply to "${inputMessage}"`;
+
+    let index = 0;
+    const interval = 30;
+    setIsAiTyping(true);
+
+    setMessages(prev => [...prev, { sender: 'ai', text: '' }]);
+    dispatch(addMessage({
+      token: currentChatToken,
+      message: { sender: 'ai', text: '' }
+    }));
+
+    const timer = setInterval(() => {
+      if (index < geminiText.length) {
+        const next = geminiText[index++];
+
+        setMessages(prev => {
+          const last = prev[prev.length - 1];
+          const updated = { ...last, text: last.text + next };
+
+          dispatch(addMessage({ token: currentChatToken, message: updated }));
+          return [...prev.slice(0, -1), updated];
+        });
+      } else {
+        clearInterval(timer);
+        setIsAiTyping(false);
+      }
+    }, interval);
   };
 
   if (!currentChatToken) {
