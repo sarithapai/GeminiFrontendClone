@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { setActiveChat, startNewChat } from "@/redux/chatSlice";
 import { getAuthInfo } from "@/utils/authUtils";
-import { START_NEW_CHAT, CHAT_PLACEHOLDER } from "@/utils/strings";
+import { START_NEW_CHAT, CHAT_PLACEHOLDER, SIGN_IN } from "@/utils/strings";
 import Button from "./commonViews/Button";
+import { useRouter } from "next/navigation";
 
 export default function Sidebar() {
     const dispatch = useDispatch();
+    const router = useRouter();
+
     const chats = useSelector((state: RootState) => state.chat.chats);
     const [open, setOpen] = useState(false);
 
@@ -16,6 +19,10 @@ export default function Sidebar() {
     const onSelectChat = (token: string) => {
         dispatch(setActiveChat(token));
     }
+
+    const handleLogin = () => {
+        router.push('/signin');
+    };
 
     return (
         <div className="bg-gray-200">
@@ -62,23 +69,33 @@ export default function Sidebar() {
                         />
                     )}
 
-                    {authInfo && <> <h2 className="text-xl font-bold mb-4">Recent</h2>
-                        <ul>
+                    <h2 className="text-xl font-bold mb-4">Recent</h2>
+                    {authInfo ? <ul>
 
-                            {[...chats].reverse().map(({ token, messages }) => (
-                                <li key={token}>
-                                    <button
-                                        className="w-full text-left p-2 hover:bg-gray-200"
-                                        onClick={() => {
-                                            onSelectChat?.(token);
-                                        }}
-                                    >
-                                        {messages.length > 0 ? messages[0].text.slice(0, 30) : CHAT_PLACEHOLDER }
-                                    </button>
-                                </li>
-                            ))}
-                        </ul>
-                    </>}
+                        {[...chats].reverse().map(({ token, messages }) => (
+                            <li key={token}>
+                                <button
+                                    className="w-full text-left p-2 hover:bg-gray-200"
+                                    onClick={() => {
+                                        onSelectChat?.(token);
+                                    }}
+                                >
+                                    {messages.length > 0 ? messages[0].text.slice(0, 30) : CHAT_PLACEHOLDER}
+                                </button>
+                            </li>
+                        ))}
+                    </ul> : <div className="bg-white border border-gray-300 rounded-lg p-4 text-center shadow-sm mt-4">
+                        <p className="mb-3 text-gray-700 font-medium">
+                            Sign in to start saving your chats
+                            Once you're signed in, you can access your recent chats here.
+
+                        </p>
+                        <Button
+                            onClick={handleLogin}
+                            title={SIGN_IN}
+                        />
+
+                    </div>}
                 </div>
             </div>
         </div>
