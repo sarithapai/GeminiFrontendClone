@@ -2,10 +2,9 @@ type ButtonProps = {
     onClick?: () => void;
     title: string;
     type?: "button" | "submit" | "reset";
-    className?: string;
 }
 
-export default function Button({ onClick, title, type = "button", className = "" }: ButtonProps) {
+export default function Button({ onClick, title, type = "button" }: ButtonProps) {
     return (
         <button
             type={type}
