@@ -14,6 +14,7 @@ const ChatComponent = () => {
   const currentChatToken = useSelector((state: RootState) => state.chat.activeChatToken);
   const [messages, setMessages] = useState<Message[]>([]);
   const [inputMessage, setInputMessage] = useState<string>('');
+  const [isAiTyping, setIsAiTyping] = useState(false);
   const dispatch = useDispatch();
   const lastAiTimer = useRef<NodeJS.Timeout | null>(null);
 
@@ -46,22 +47,23 @@ const ChatComponent = () => {
   }, [messages]);
 
   const handleSendMessage = async () => {
-    if (!inputMessage.trim() || !currentChatToken) return;
+    if (!inputMessage.trim() || !currentChatToken || isAiTyping) return;
 
-    const userMsg: Message = { sender: 'user', text: inputMessage };
+    setIsAiTyping(true);
+
+    const userMsg = { sender: 'user', text: inputMessage } as Message;
     setMessages([...messages, userMsg]);
     dispatch(addMessage({ token: currentChatToken, message: userMsg }));
+    setInputMessage('');
 
-    const geminiResponseText = `AI: This is a mock response for "${inputMessage}"`;
-    const aiMsg: Message = { sender: 'ai', text: geminiResponseText };
     lastAiTimer.current = setTimeout(() => {
+      const geminiText = `AI: Mock reply to "${inputMessage}"`;
+      const aiMsg = { sender: 'ai', text: geminiText } as Message;
       setMessages(prev => [...prev, aiMsg]);
       dispatch(addMessage({ token: currentChatToken, message: aiMsg }));
+      setIsAiTyping(false);
     }, 1500);
-
-    setInputMessage('');
   };
-
 
   if (!currentChatToken) {
     return <div className='items-center'>{LOADING_CHAT}</div>;
@@ -91,6 +93,13 @@ const ChatComponent = () => {
           ))
         )}
       </div>
+      {isAiTyping && (
+        <div className="flex justify-start mb-2">
+          <div className="typing-indicator p-2 bg-gray-200 rounded">
+            Gemini is typing...
+          </div>
+        </div>
+      )}
       <form
         className="flex flex-col sm:flex-row gap-2 border-t border-gray-200 pt-2"
         onSubmit={e => { e.preventDefault(); handleSendMessage(); }}
