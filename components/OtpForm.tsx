@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { setAuthInfo } from "@/utils/authUtils";
 import toast, { Toaster } from "react-hot-toast";
 import { OTP_ERROR, OTP_SENT, OTP_SUCCESS } from "@/utils/strings";
+import Button from "./commonViews/Button";
 
 export function OtpForm() {
   const router = useRouter();
@@ -71,9 +72,7 @@ export function OtpForm() {
           </div>
         )}
 
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2">
-          {step === "send" ? "Send OTP" : "Verify OTP"}
-        </button>
+        <Button type="submit" title={step === "send" ? "Send OTP" : "Verify OTP"} />
       </form>
     </>
 

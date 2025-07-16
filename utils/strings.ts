@@ -1,6 +1,7 @@
 export const LOGIN_VIA_OTP = "Login via OTP";
 export const LOADING_CHAT = "Loading Chat...";
-export const HOME_TITLE = "Meet Gemini Clone, <br />your personal AI assistant"
+export const HOME_TITLE = "Meet Gemini Clone,"
+export const HOME_TITLE2 = "your personal AI assistant";
 export const APP_NAME = "Gemini Clone";
 export const SIGN_IN = "Sign in";
 export const OTP_SENT = "OTP sent! (simulated)"

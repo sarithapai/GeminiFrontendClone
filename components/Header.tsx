@@ -1,6 +1,7 @@
 import { APP_NAME, SIGN_IN } from "@/utils/strings";
 import { useRouter } from "next/navigation";
 import React from "react";
+import Button from "./commonViews/Button";
 
 interface HeaderProps {
     userName?: string;
@@ -26,12 +27,10 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
                             {userName}
                         </span>
                     ) : (
-                        <button
+                        <Button
                             onClick={handleLogin}
-                            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-                        >
-                            {SIGN_IN}
-                        </button>
+                            title={SIGN_IN}
+                        />
                     )}
                 </div>
             </div>
